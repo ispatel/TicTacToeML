@@ -11,9 +11,10 @@ class Board:
     def full(self) -> bool: 
         #returns true if board is full and false if board is not full yet
         if None in self.spaces_taken:
-            return True
-        else: return False 
-           
+            return False
+        else: 
+            return True 
+
     def print_board(self) -> None:
         #prints board in a readable format instead of a  1x9 list
         spaces_taken_formatted = []
@@ -48,16 +49,9 @@ class Board:
             return True
         if self.spaces_taken[2] == self.spaces_taken[4] and self.spaces_taken[4] == self.spaces_taken[6] and self.spaces_taken[2]!=None:
             return True
+        return False
 
-    def update(self,index,player) -> None:
+    def update(self,index,player):
         # updates board for turn 
         if self.spaces_taken[index] == None:
             self.spaces_taken[index] = player
-        else: 
-            print("That space is already taken")
-        return None
-
-    def playGame(self): 
-        while self.full() == False and self.win == False: 
-            self.update(random.randint(0,8),0)
-            self.print_board()
