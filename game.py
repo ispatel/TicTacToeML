@@ -1,24 +1,33 @@
+
 from board import Board
 import random 
 
 class Game:
     def __init__(self) -> None:
         self.board = Board()
+        self.turn = 1
     
-    def playGame(self): 
-        turn = 1 #initialize turn as 2 if you want "O" to go first
-        while self.board.full() == False and self.board.win() == False: 
-            if turn == 0:
-                turn = turn + 1
-            randomIndex = random.randint(0,8)
-            self.board.update(randomIndex,turn % 2)
-            turn += 1
+    def freeSpace(self) -> list:
+        # takes in the board and returns a list of all possible spaces that are free
+        # by looping through the array and finding and storing the spots in the board
+        # list where the element is None
+        spaces_taken = self.board.getSpacesTaken()
+        freeSpaces = []
+        for i in range(len(spaces_taken)):
+            if spaces_taken[i] == None:
+                freeSpaces.append(i)
+        return freeSpaces
 
+    def playGame(self): 
+        while self.board.full() == False and self.board.win() == False: 
+            # updates board with a random index that is free and decides what turn it is based weather 
+            # or not turn is even or odd
+            self.board.update(self.freeSpace()[random.randint(0,len(self.freeSpace())-1)],self.turn % 2)
+            self.turn += 1
         self.board.print_board()
 
 game1 = Game()
 game1.playGame()
 
-#Alternate Turns 
-#Make it so update function witll try to update until a possible number is found 
-#Print where the winning combo is 
+#pick a random index in freeSpace to 
+#from rand index 

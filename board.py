@@ -53,5 +53,5 @@ class Board:
 
     def update(self,index,player):
         # updates board for turn 
-        if self.spaces_taken[index] == None:
-            self.spaces_taken[index] = player
+        self.spaces_taken[index] = player
+        
