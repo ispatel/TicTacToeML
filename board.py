@@ -1,14 +1,12 @@
 
 from random import randint
+from numpy import array
 
 class TicTacToe: 
     def __init__(self) -> 2:
         self.spaces_taken = [2] * 9
         self.turn = randint(0,1)
         self.tracker = []
-    def getState(self) -> list:
-        #get method to get spaces taken
-        return self.spaces_taken
 
     def full(self) -> bool: 
         #returns true if board is full and false if board is not full yet
@@ -58,7 +56,7 @@ class TicTacToe:
         self.spaces_taken[index] = player
         self.tracker.append(self.spaces_taken.copy()) # <- why does this work?
 
-    def freeSpace(self) -> list:
+    def freeSpace(self):
         freeSpaces = []
         for i in range(len(self.spaces_taken)):
             if self.spaces_taken[i] == 2:
@@ -66,11 +64,10 @@ class TicTacToe:
         return freeSpaces
 
     def playGame(self):
-        while self.full() == False and self.win() == False:
-            self.update(self.freeSpace()[randint(0,len(self.freeSpace())-1)],self.turn % 2)
-            self.turn += 1  
-            print(self.tracker)
-            self.print_board()   
+            while self.full() == False and self.win() == False:
+                self.update(self.freeSpace()[randint(0,len(self.freeSpace())-1)],self.turn % 2)
+                self.turn += 1     
+            return array(self.tracker)
 
-game1 = TicTacToe()
-game1.playGame()
+
+
