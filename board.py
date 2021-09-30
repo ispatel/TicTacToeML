@@ -69,5 +69,3 @@ class TicTacToe:
                 self.turn += 1     
             return array(self.tracker)
 
-
-
