@@ -3,11 +3,16 @@ from random import randint
 from numpy import array
 from Minimax import turn
 
+
 class TicTacToe: 
     def __init__(self) -> 2:
         self.spaces_taken = [2] * 9
-        self.turn = randint(0,1)
+        #self.turn = randint(0,1)
+        self.turn  = 1
         self.tracker = []
+
+    def getState(self): 
+        return self.spaces_taken
 
     def full(self) -> bool: 
         #returns true if board is full and false if board is not full yet
@@ -61,17 +66,13 @@ class TicTacToe:
                 freeSpaces.append(i)
         return freeSpaces
 
-    def playGame(self, ai = False, print = False):
+    def playGame(self):
             while self.full() == False and self.win() == False:
-                if ai == False: 
-                    self.update(self.freeSpace()[randint(0,len(self.freeSpace())-1)],self.turn % 2)
-                if ai == True: 
-                    self.update(turn(self.spaces_taken),self.turn % 2)
-                if print == True:
-                    self.print_board()
+                self.update(self.freeSpace()[randint(0,len(self.freeSpace())-1)],self.turn % 2)
                 self.turn += 1     
             return array(self.tracker)
     
+# X = ai 
+# O = human player
 
-
-(TicTacToe().playGame(ai=True,print=True))
+#(TicTacToe().playGame(ai=True,print=True))

@@ -1,14 +1,17 @@
-from numpy import Infinity
+from numpy import inf
+
+
 
 
 def turn(board): 
-    bestScore = -Infinity
+    bestScore = -inf
     move = 0
     for pos,val in enumerate(board): 
         if val == 2: 
             board[pos] = 1
-            score = minimax(board,0,True)
+            score = minimax(board,0,False)
             board[pos] = 2
+            print(pos,score)
             if score > bestScore: 
                 bestScore = score
                 move = pos
@@ -34,21 +37,25 @@ def minimax(board, depth, isMaximizing):
         0:-1,
         None:0,
     }
-    result = win(board)
-    if result != None: 
-        return scores[result]
-    
+
+    full = True if 2 not in board else False
+    if win(board) != None or full: 
+        return scores[win(board)]
+    # ai = 1 
+    # non ai = 0 
+
     if isMaximizing: 
-        bestScore = -Infinity
+        bestScore = -inf
         for pos,val in enumerate(board): 
-            if val == 2: 
+            if val == 2:
                 board[pos] = 1
                 score = minimax(board,depth + 1, False)
+                #print(board,score)
                 board[pos] = 2
                 bestScore = max([score,bestScore])
         return bestScore
     else: 
-        bestScore = Infinity
+        bestScore = inf
         for pos,val in enumerate(board): 
             if val == 2: 
                 board[pos] = 0
@@ -56,4 +63,4 @@ def minimax(board, depth, isMaximizing):
                 board[pos] = 2
                 bestScore = min([score,bestScore])
         return bestScore
-    
+
